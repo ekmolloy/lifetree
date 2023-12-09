@@ -24,12 +24,12 @@ OUTG="$DATDIR/primates16.$DATE.gfa"
 
 uname -n
 
-$SEQWISH \
+/usr/bin/time -vv $SEQWISH \
     -s $SEQS \
     -p $PAFS \
     -b /dev/shm \
     -g $OUTG \
-    -B10000 \
+    -B5000 \
     -t32 \
     -P \
     > seqwish-$DATE.out \
