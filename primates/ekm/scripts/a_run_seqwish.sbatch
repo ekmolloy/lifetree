@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=2000gb
-#SBATCH --time=11-00:00:00
+#SBATCH --time=07-00:00:00
 #SBATCH --qos=highmem
 #SBATCH --partition=cbcb
 #SBATCH --account=cbcb
@@ -22,14 +22,19 @@ SEQS="$DATDIR/primates16.$DATE.fa"
 PAFS=$(ls -m $DATDIR/primates16.${DATE}_wfmash-v0.12.4/*.aln.paf | tr -d "\n" )
 OUTG="$DATDIR/primates16.$DATE.gfa"
 
+# Save node name
 uname -n
 
+# Do some clean up
+rm -rf /dev/shm/seqwish*
+
+# Run seqwish
 /usr/bin/time -vv $SEQWISH \
     -s $SEQS \
     -p $PAFS \
     -b /dev/shm \
     -g $OUTG \
-    -B5000 \
+    -B1 \
     -t32 \
     -P \
     > seqwish-$DATE.out \
